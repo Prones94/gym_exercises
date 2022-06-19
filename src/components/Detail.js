@@ -6,7 +6,22 @@ import TargetImage from '../assets/icons/target.png'
 import EquipmentImage from '../assets/icons/equipment.png'
 
 const Detail = ({ exerciseDetail }) => {
-  const { boydPart, gifUrl, name, target, equipment } = exerciseDetail
+  const { bodyPart, gifUrl, name, target, equipment } = exerciseDetail
+
+  const extraDetail = [
+    {
+      icon: BodyPartImage,
+      name: bodyPart
+    },
+    {
+      icon: TargetImage,
+      name: target
+    },
+    {
+      icon: EquipmentImage,
+      name: equipment
+    }
+  ]
 
 
   return (
@@ -19,6 +34,26 @@ const Detail = ({ exerciseDetail }) => {
       alignItems: 'center'
     }}>
       <img src={gifUrl} alt={name} loading="lazy" className="detail-image" />
+      <Stack
+        sx={{ gap: {lg: '35px', xs: '20px' }}}
+      >
+        <Typography variant="h3">{name}</Typography>
+        <Typography variant="h6">
+          Exercising can help you get and stay strong. { name } {``} is one of the exercises that targets your { target }.
+        </Typography>
+        {extraDetail.map((item) => (
+          <Stack key={item.name} direction="row" gap="24px" alignItems="center">
+            <Button sx={{
+              background: '#FFF2db', borderRadius: '50%', width: '100px', height: '100px'
+            }}>
+              <img src={item.icon} alt={bodyPart} style={{width: '50px', height: '50px'}}/>
+            </Button>
+            <Typography variant="h5" textTransform="capitalize">
+              {item.name}
+            </Typography>
+          </Stack>
+        ))}
+      </Stack>
     </Stack>
   )
 }
